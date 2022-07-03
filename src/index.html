@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+script<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -13,20 +13,18 @@
       type="text/javascript"
       src=".\services\data.coins.service.js"
     ></script>
+
+   
+
   </head>
   <body>
     hello world
 
-    <input
-      type="button"
-      onclick="coinService.getAllCoins()"
-      value="Get all coins"
-    />
-
+   
     <input
     type="button"
     onclick="coinService.getAllCoins({disableCache: true})"
-    value="fetch all coins "
+    value="Refresh coins from server"
   />
 
     <input
@@ -34,5 +32,16 @@
       onclick="coinService.getCoinById({coinId: '01coin'})"
       value="Get Coin Data"
     />
+
+    <script type="text/javascript">
+        try{
+            coinService.getAllCoins();
+        }catch(err){
+            console.error(`problem getAllCoins`, err);
+            alert(`problem getAllCoins`)
+        }
+
+    </script>
+
   </body>
 </html>

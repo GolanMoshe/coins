@@ -16,13 +16,13 @@ function CoinService() {
         console.log(cachedCoins);
         return cachedCoins;
       });
-  }
+  };
 
   function getCoinById({ coinId }) {
     if (!coinId || !cachedCoins) {
       alert(`coinId and cachedCoins are required!`);
       return;
-    }
+    };
 
     const url = GET_COIN_BY_ID_URL.replace(":coinId", coinId);
 

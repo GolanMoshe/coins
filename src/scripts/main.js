@@ -2,8 +2,9 @@ const errorMessageContainer = document.getElementById('error-message-container')
 
 
 const onCoinSelectedStatisChanged = (e) => {
-  const selectedCoin = e.target.attributes.data_coin_id.value;
-  console.log(`selectedCoin ${selectedCoin} ${e.target.checked}`)
+  //call the user.service toggleCoinSelection functiob
+  const coinId  = e.target.attributes.data_coin_id.value;
+  const isChecked = e.target.checked;
 }
 
 

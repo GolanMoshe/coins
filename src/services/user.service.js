@@ -16,7 +16,13 @@ function UserService() {
         return [];
     };
 
-    function addCoin(coinId) {
+    function toggleCoinSelection({ coinId , isChecked}){
+        debugger
+       const selectCoins =   isChecked? addCoin(coinId) : removeCoin(coinId)
+       storageService.setItem(Config.USER_COINS_LOCAL_STORAGE_KET  ,JSON.stringify(selectCoins))
+    }
+
+    function addCoin( coinId  ) {
         const coinsstr = storageService.getItem(Config.USER_COINS_LOCAL_STORAGE_KET) ; 
        
         const userCoins = !!coinsstr ? JSON.parse(coinsstr) : [];
@@ -27,7 +33,7 @@ function UserService() {
         }
 
         userCoins.push(coinId);
-        storageService.setItem(Config.USER_COINS_LOCAL_STORAGE_KET  ,JSON.stringify(userCoins))
+        return userCoins;
     };
 
     function removeCoin(coinId) {
@@ -38,13 +44,11 @@ function UserService() {
         addUser,
         getProfile,
         updateProfile,
+        toggleCoinSelection,
         getCoins,
-        addCoin,
-        removeCoin,
     };
 
 }
 
 const userService = UserService();
 
-userService.addCoin("bitcoin")

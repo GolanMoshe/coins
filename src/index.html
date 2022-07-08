@@ -1,57 +1,54 @@
-script<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+<!doctype html>
+<html lang="ar" dir="rtl">
 
-    <script
-    type="text/javascript"
-    src=".\config\global.config.js"></script>
-  ></script>
-    <script
-      type="text/javascript"
-      src=".\types\coin.type.js"></script>
-    ></script>
-    <script
-      type="text/javascript"
-      src=".\services\data.coins.service.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src=".\services\storage.service.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src=".\services\user.service.js"
-    ></script>
-  </head>
-  <body>
-    hello world
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-   
-    <input
-    type="button"
-    onclick="coinService.getAllCoins({disableCache: true})"
-    value="Refresh coins from server"
-  />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.rtl.min.css"
+    integrity="sha384-dc2NSrAXbAkjrdm9IYrX10fQq9SDG6Vjz7nQVKdKcJl3pC+k37e7qJR5MVSCS+wR" crossorigin="anonymous">
 
-    <input
-      type="button"
-      onclick="coinService.getCoinById({coinId: '01coin'})"
-      value="Get Coin Data"
-    />
+  <title>Document</title>
+  <script type="text/javascript" src=".\config\global.config.js"></script>
+  <script type="text/javascript" src=".\types\coin.type.js"></script>
+  <script type="text/javascript" src=".\services\data.coins.service.js"></script>
+  <script type="text/javascript" src=".\services\storage.service.js"></script>
+  <script type="text/javascript" src=".\services\user.service.js"></script>
 
+  <!-- This is a template represent coin html element--->
+  <template id="coin-template">
+    <div class="card coin-container" style="width:10rem;margin: 0.5rem;">
+      <h5 class="card-header coin-name"></h5>
+      <div class="card-body">
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" role="switch">
+        </div>
+        <h5 class="card-symbol"></h5>
+      </div>
+    </div>
+  </template>
+</head>
+
+<body>
+  <div id="error-message-container" style="color:red;margin:8px;text-align:center"></div>
+  <div style="margin:8px;">
+    <input type="button" onclick="coinService.getAllCoins({disableCache: true})" value="Refresh coins from server" />
+    <input type="button" onclick="coinService.getCoinById({coinId: '01coin'})" value="Get Coin Data" />
+  </div>
+  <div id="coin-list-container" style="display: flex;flex-wrap: wrap;"></div>
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+    <script type="text/javascript" src=".\scripts\main.js"></script>
     <script type="text/javascript">
-        try{
-            coinService.getAllCoins();
-        }catch(err){
-            console.error(`problem getAllCoins`, err);
-            alert(`problem getAllCoins`)
-        }
-
+      // call function from main.js
+      onLoad();
     </script>
-
-  </body>
+</body>
 </html>

@@ -18,32 +18,6 @@ function CoinService() {
 
   };
 
-  function getCoinById2({ coinId }) {
-    if (!coinId || !cachedCoins) {
-      alert(`coinId and cachedCoins are required!`);
-      return;
-    };
-
-    const url = GET_COIN_BY_ID_URL.replace(":coinId", coinId);
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((selectedCoin) => {
-        const currentPrices = selectedCoin?.market_data?.current_price;
-        if (!currentPrices) {
-          alert('error no market data available!')
-          return;
-        }
-        const cachedCoin = cachedCoins.find((coin) => coin.id === coinId);
-        cachedCoin.currentPrices = CurrentPricesType({ currentPrices });
-        cachedCoin.details = CoinDetailsType(selectedCoin);
-
-
-        console.log("cachedCoin", cachedCoin);
-        return cachedCoin;
-      });
-  }
-
 
   async function getCoinById({ coinId }) {
     if (!coinId || !cachedCoins) {

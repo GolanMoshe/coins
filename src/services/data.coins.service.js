@@ -1,19 +1,38 @@
 function CoinService() {
   const GET_ALL_COINS_URL = "https://api.coingecko.com/api/v3/coins/list";
   const GET_COIN_BY_ID_URL = "https://api.coingecko.com/api/v3/coins/:coinId";
-  let cachedCoins = null;
+ 
+
+
+  function getCoinsFromCache() { 
+    return storageService.getItem('GET_ALL_COINS_URL') ?? null;
+  }
 
   async function getAllCoins({ disableCache = false } = {}) {
-    if (disableCache) cachedCoins = null;
 
-    if (!!cachedCoins) return cachedCoins;
+    let cachedCoins;
+    
+    if (!disableCache) { 
+      cachedCoins = getCoinsFromCache();
+      
+      if (cachedCoins) {
+        console.log( '==================fetch coins from CACHE======================');
+        return cachedCoins;
+      }
+    }
 
+  
+  
+
+    console.log( '==================coins from SERVER======================')
     const response = await fetch(GET_ALL_COINS_URL);
     const coins = await response.json();
 
-    const selectCoins = coins.splice(0, 100);
+    const selectCoins = coins.splice(0, Config.COINS_DISPLAY_COUNT);
     cachedCoins = selectCoins.map((coin) => CoinType(coin));
-    console.log(cachedCoins);
+
+    storageService.setItem("GET_ALL_COINS_URL" , JSON.stringify(cachedCoins));
+    
     return cachedCoins;
 
   };
@@ -45,19 +64,41 @@ function CoinService() {
 
   }
 
-    function getUserSelectedCoins(){
-    const userSelectCoins = storageService.getItem(Config.USER_SELECTED_COINS_KEY) ; 
-    const userCoins = (!!userSelectCoins && userSelectCoins!== "undefined") ? JSON.parse(userSelectCoins) : [];
-    return userCoins;
+   function getUserSelectedCoins(){
+    return storageService.getItem(Config.USER_SELECTED_COINS_KEY) ?? [];
   }
 
+  async function getCoinsWithUserSelection(){
+    const allCoins =  await getAllCoins();
+    const userSelectionCoins =  await getUserSelectedCoins();
+
+
+    for (let coin of allCoins){
+
+      if(userSelectionCoins.includes(coin.id)){
+        coin.isSelected = true;
+      }
+
+    }
+
+    return allCoins;
+
+  }
+
+
+  function clearCache() { 
+    console.log(`=================clean coins from cache=========================`);
+    storageService.removeItem('GET_ALL_COINS_URL');
+  }
   
 
 
   return {
     getAllCoins,
     getCoinById,
-    getUserSelectedCoins
+    getUserSelectedCoins,
+    getCoinsWithUserSelection,
+    clearCache
   };
 }
 

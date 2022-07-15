@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="rtl">
 
 <head>
   <!-- Required meta tags -->
@@ -34,8 +34,27 @@
 <body>
   <div id="error-message-container" style="color:red;margin:8px;text-align:center"></div>
   <div style="margin:8px;">
-    <input type="button" onclick="coinService.getAllCoins({disableCache: true})" value="Refresh coins from server" />
-    <input type="button" onclick="coinService.getCoinById({coinId: '01coin'})" value="Get Coin Data" />
+    <form onsubmit="onAddUserHandler(event)" id="userForm" style="width: 40%; text-align: center; justify-content: center;">
+      <div class="mb-3">
+        <input type="text" class="form-control" id="fName" placeholder="First Name">
+      </div>
+      <div class="mb-3">
+        <input type="text" class="form-control" id="lName" placeholder="Last Name">
+      </div>
+      <div class="mb-3">
+        <input type="tel" class="form-control" id="phone" placeholder="Phone Number">
+      </div>
+      <div class="mb-3">
+        <input type="email" class="form-control" id="email" placeholder="User E-mail">
+      </div>
+      <div>
+        <label for="">User Premium</label>
+        <div class="form-check form-switch">
+          <input class="form-check-input"   id="isPremium" type="checkbox" role="switch">
+        </div>
+      </div>
+      <input type="submit" class="btn btn-primary" id="formSubmitLabel" value="">
+    </form>
   </div>
   <div id="coin-list-container" style="display: flex;flex-wrap: wrap;"></div>
 

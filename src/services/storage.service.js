@@ -3,7 +3,9 @@ function StorageService() {
     const localStorage = window.localStorage
 
     function getItem(key) {
-        return localStorage.getItem(key);
+        const value = localStorage.getItem(key);
+
+        return (value && value !== 'undefined') ? JSON.parse(value) : null;
     };
 
     function setItem(key, value) {

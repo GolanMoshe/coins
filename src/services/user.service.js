@@ -1,37 +1,45 @@
 function UserService() {
     const userCoins = [];
-    function addUser({ profile }) {
 
+    function addUser(user) {
+        if (!user)
+            throw (`user is mandatory`);
+        storageService.setItem(Config.USER_PROFILE_KEY, JSON.stringify(user))
     };
 
-    function getProfile() {
-        return {};
+    function getUser() {
+        return storageService.getItem(Config.USER_PROFILE_KEY);
     }
 
-    function updateProfile({ fName, lName, phone, avatar, email }) {
-        
+    function updateUser({ fName, lName, phone, avatar, email }) {
+
     };
 
     function getCoins() {
         return [];
     };
 
+    function isPremium(){
+        const user = userService.getUser();
+        return !!user.isPremium;
+    }
+
     function toggleCoinSelection({ coinId, isChecked }) {
        
-       const userSelectionCoins =  dataCoinService.getUserSelectedCoins();
-       let isAddCoinEnabled =  true;
+        const userSelectionCoins = dataCoinService.getUserSelectedCoins();
+        let isAddCoinEnabled = true;
 
-        if(isChecked && userSelectionCoins.length > 4) {
+        if (isChecked && userSelectionCoins.length > 4 && !isPremium()) {
             isAddCoinEnabled = false;
         }
 
-        if(!isAddCoinEnabled) {
+        if (!isAddCoinEnabled) {
             alert("For premuim users only, you can't select more then 5 coins");
             return !isChecked;
         }
 
-       isChecked ? addUserSelectedCoin(coinId) : removeUserSelectedCoin(coinId);
-       return isChecked;
+        isChecked ? addUserSelectedCoin(coinId) : removeUserSelectedCoin(coinId);
+        return isChecked;
     }
 
     function addUserSelectedCoin(coinId) {
@@ -40,9 +48,9 @@ function UserService() {
         if (userSelectionCoins.includes(coinId)) {
             console.log(`coin already exist in user coins`)
             return
-        }    
+        }
         userSelectionCoins.push(coinId);
-    
+
         storageService.setItem(Config.USER_SELECTED_COINS_KEY, JSON.stringify(userSelectionCoins))
     };
 
@@ -57,16 +65,17 @@ function UserService() {
             console.log("userSelectionCoins", userSelectionCoins);
         }
 
-       storageService.setItem(Config.USER_SELECTED_COINS_KEY, JSON.stringify(userSelectionCoins))
-       
+        storageService.setItem(Config.USER_SELECTED_COINS_KEY, JSON.stringify(userSelectionCoins))
+
     };
 
     return {
         addUser,
-        getProfile,
-        updateProfile,
+        getUser,
+        updateUser,
         toggleCoinSelection,
         getCoins,
+        isPremium,
     };
 
 }

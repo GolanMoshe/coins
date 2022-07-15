@@ -1,3 +1,4 @@
 const Config = {  
-USER_COINS_LOCAL_STORAGE_KET :"user-coins"
+    USER_SELECTED_COINS_KEY :"user-selected-coins"
 }
+

@@ -27,7 +27,7 @@ function CoinService() {
 
     const url = GET_COIN_BY_ID_URL.replace(":coinId", coinId);
 
-    const res = await fetch(url);
+    const response = await fetch(url);
     const selectedCoin = await response.json();
 
     const currentPrices = selectedCoin?.market_data?.current_price;
@@ -45,11 +45,20 @@ function CoinService() {
 
   }
 
+    function getUserSelectedCoins(){
+    const userSelectCoins = storageService.getItem(Config.USER_SELECTED_COINS_KEY) ; 
+    const userCoins = (!!userSelectCoins && userSelectCoins!== "undefined") ? JSON.parse(userSelectCoins) : [];
+    return userCoins;
+  }
+
+  
+
 
   return {
     getAllCoins,
     getCoinById,
+    getUserSelectedCoins
   };
 }
 
-const coinService = CoinService();
+const dataCoinService = CoinService();

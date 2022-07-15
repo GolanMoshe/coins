@@ -9,35 +9,56 @@ function UserService() {
     }
 
     function updateProfile({ fName, lName, phone, avatar, email }) {
-
+        
     };
 
     function getCoins() {
         return [];
     };
 
-    function toggleCoinSelection({ coinId , isChecked}){
-        debugger
-       const selectCoins =   isChecked? addCoin(coinId) : removeCoin(coinId)
-       storageService.setItem(Config.USER_COINS_LOCAL_STORAGE_KET  ,JSON.stringify(selectCoins))
-    }
-
-    function addCoin( coinId  ) {
-        const coinsstr = storageService.getItem(Config.USER_COINS_LOCAL_STORAGE_KET) ; 
+    function toggleCoinSelection({ coinId, isChecked }) {
        
-        const userCoins = !!coinsstr ? JSON.parse(coinsstr) : [];
+       const userSelectionCoins =  dataCoinService.getUserSelectedCoins();
+       let isAddCoinEnabled =  true;
 
-        if (userCoins.includes(coinId)) {
-            console.log(`coin already exist in user coins`)
-            return
+        if(isChecked && userSelectionCoins.length > 4) {
+            isAddCoinEnabled = false;
         }
 
-        userCoins.push(coinId);
-        return userCoins;
+        if(!isAddCoinEnabled) {
+            alert("For premuim users only, you can't select more then 5 coins");
+            return !isChecked;
+        }
+
+       isChecked ? addUserSelectedCoin(coinId) : removeUserSelectedCoin(coinId);
+       return isChecked;
+    }
+
+    function addUserSelectedCoin(coinId) {
+
+        const userSelectionCoins = dataCoinService.getUserSelectedCoins();
+        if (userSelectionCoins.includes(coinId)) {
+            console.log(`coin already exist in user coins`)
+            return
+        }    
+        userSelectionCoins.push(coinId);
+    
+        storageService.setItem(Config.USER_SELECTED_COINS_KEY, JSON.stringify(userSelectionCoins))
     };
 
-    function removeCoin(coinId) {
+    function removeUserSelectedCoin(coinId) {
 
+        const userSelectionCoins = dataCoinService.getUserSelectedCoins();
+        console.log("userSelectionCoins", userSelectionCoins);
+        const coinIdIndex = userSelectionCoins.indexOf(coinId);
+        console.log("coinIdIndex", coinIdIndex);
+        if (coinIdIndex > -1) {
+            userSelectionCoins.splice(coinIdIndex, 1);
+            console.log("userSelectionCoins", userSelectionCoins);
+        }
+
+       storageService.setItem(Config.USER_SELECTED_COINS_KEY, JSON.stringify(userSelectionCoins))
+       
     };
 
     return {

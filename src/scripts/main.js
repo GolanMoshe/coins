@@ -5,6 +5,8 @@ const onCoinSelectedStatisChanged = (e) => {
   //call the user.service toggleCoinSelection functiob
   const coinId  = e.target.attributes.data_coin_id.value;
   const isChecked = e.target.checked;
+  const currentStatus = userService.toggleCoinSelection({coinId, isChecked});
+  e.target.checked = currentStatus;
 }
 
 
@@ -13,7 +15,7 @@ const onLoad = async () => {
 
     const coinTemplate = document.getElementById('coin-template')
     const coinListContainerRef = document.getElementById('coin-list-container');
-    const coins = (await coinService.getAllCoins()).slice(0, 100)
+    const coins = (await dataCoinService.getAllCoins()).slice(0, 100)
 
     for (const coin of coins) {
       const coinCardNode = coinTemplate.content.cloneNode(true);

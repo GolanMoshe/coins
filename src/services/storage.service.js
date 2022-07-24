@@ -4,8 +4,15 @@ function StorageService() {
 
     function getItem(key) {
         const value = localStorage.getItem(key);
+        let parseValue;
+        try{
+            parseValue =  JSON.parse(value) ;
+            return parseValue
+        }catch(err){
+           
+        }
 
-        return (value && value !== 'undefined') ? JSON.parse(value) : null;
+        return (value && value !== 'undefined') ? value : null;
     };
 
     function setItem(key, value) {

@@ -11,7 +11,9 @@
     integrity="sha384-dc2NSrAXbAkjrdm9IYrX10fQq9SDG6Vjz7nQVKdKcJl3pC+k37e7qJR5MVSCS+wR" crossorigin="anonymous">
 
   <title>Document</title>
+
   <script type="text/javascript" src=".\config\global.config.js"></script>
+  <script type="text/javascript" src=".\services\lang.service.js"></script>
   <script type="text/javascript" src=".\types\coin.type.js"></script>
   <script type="text/javascript" src=".\services\data.coins.service.js"></script>
   <script type="text/javascript" src=".\services\storage.service.js"></script>
@@ -32,6 +34,8 @@
 </head>
 
 <body>
+  <input type="button" onclick="changeLanguage('he')" value="he">
+  <input type="button" onclick="changeLanguage('en')" value="en">
   <div id="error-message-container" style="color:red;margin:8px;text-align:center"></div>
   <div style="margin:8px;">
     <form onsubmit="onAddUserHandler(event)" id="userForm" style="width: 40%; text-align: center; justify-content: center;">

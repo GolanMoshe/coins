@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" dir="rtl">
+<html lang="en">
 
 <head>
   <!-- Required meta tags -->
@@ -9,8 +9,7 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.rtl.min.css"
     integrity="sha384-dc2NSrAXbAkjrdm9IYrX10fQq9SDG6Vjz7nQVKdKcJl3pC+k37e7qJR5MVSCS+wR" crossorigin="anonymous">
-
-  <title>Document</title>
+  <title>Cripto Coins</title>
 
   <script type="text/javascript" src=".\config\global.config.js"></script>
   <script type="text/javascript" src=".\services\lang.service.js"></script>
@@ -21,49 +20,73 @@
 
   
   <template id="coin-template">
-    <div class="card coin-container" style="width:10rem;margin: 0.5rem;">
-      <h5 class="card-header coin-name"></h5>
-      <div class="card-body">
-        <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" role="switch">
+      <div class="card coin-container" style="width:10rem;margin: 0.5rem;">
+        <h5 class="card-header coin-name"></h5>
+        <div class="card-body">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch">
+          </div>
+          <h5 class="card-symbol"></h5>
         </div>
-        <h5 class="card-symbol"></h5>
+        <div class="card-footer">
+          <a href="#" class="btn btn-outline-primary">Read More</a>
+        </div>
       </div>
-    </div>
   </template>
+  
 </head>
 
 <body>
-  <input type="button" onclick="changeLanguage('he')" value="he">
-  <input type="button" onclick="changeLanguage('en')" value="en">
-  <div id="error-message-container" style="color:red;margin:8px;text-align:center"></div>
-  <div style="margin:8px;">
-    <form onsubmit="onAddUserHandler(event)" id="userForm" style="width: 40%; text-align: center; justify-content: center;">
-      <div class="mb-3">
-        <input type="text" class="form-control" id="fName" placeholder="First Name">
-      </div>
-      <div class="mb-3">
-        <input type="text" class="form-control" id="lName" placeholder="Last Name">
-      </div>
-      <div class="mb-3">
-        <input type="tel" class="form-control" id="phone" placeholder="Phone Number">
-      </div>
-      <div class="mb-3">
-        <input type="email" class="form-control" id="email" placeholder="User E-mail">
-      </div>
-      <div>
-        <label for="">User Premium</label>
-        <div class="form-check form-switch">
-          <input class="form-check-input"   id="isPremium" type="checkbox" role="switch">
-        </div>
-      </div>
-      <input type="submit" class="btn btn-primary" id="formSubmitLabel" value="">
-    </form>
+  <nav class="navbar bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand"><b>Criptonite</a></b>
+            <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button id="" class="btn btn-outline-primary" type="submit">Search</button>     
+      </form>
+    </div>
+  </nav>
+
+  <div style="margin: 0.5%;">
+    <input type="button" class="btn btn-outline-primary" onclick="changeLanguage('he')" value="Hebrew">
+    <input type="button" class="btn btn-outline-primary" onclick="changeLanguage('en')" value="English">
   </div>
+
+  <div id="error-message-container" style="color:red;margin:8px;text-align:center"></div>
+
+  <div style="margin:8px;">
+      <form onsubmit="onAddUserHandler(event)" id="userForm" style="width: 40%; text-align:center; justify-content:center;">
+        
+        <div class="mb-3">
+          <input type="text" class="form-control" id="fName" placeholder="First Name">
+        </div>
+
+        <div class="mb-3">
+          <input type="text" class="form-control" id="lName" placeholder="Last Name">
+        </div>
+
+        <div class="mb-3">
+          <input type="tel" class="form-control" id="phone" placeholder="Phone Number">
+        </div>
+
+        <div class="mb-3">
+          <input type="email" class="form-control" id="email" placeholder="User E-mail">
+        </div>
+
+        <div class="form-check form-switch">
+          <label for="">User Premium</label>
+            <input class="form-check-input" id="isPremium" type="checkbox" role="switch">
+        </div>
+
+        <input type="submit" class="btn btn-primary" id="formSubmitLabel" value="">
+      </form>
+  </div>
+
   <div id="coin-list-container" style="display: flex;flex-wrap: wrap;"></div>
 
 
 
+  <script src="/src/style/style.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"

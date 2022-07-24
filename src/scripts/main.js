@@ -43,8 +43,10 @@ const onAddUserHandler = (e) => {
   const lName = getHtmlInputValue(Config.USER_FORM.LNAME);
   const phone = getHtmlInputValue(Config.USER_FORM.PHONE);  
   const email = getHtmlInputValue(Config.USER_FORM.EMAIL);
-  const isPremium = getHtmlElement(Config.USER_FORM.isPremium).checked;
-  const profile = { fName, lName, phone, email, isPremium }
+  const elemIsPremium = getHtmlElement(Config.USER_FORM.isPremium);
+  console.log(`elemIsPremium`,elemIsPremium);
+  const isPremium = elemIsPremium?.checked ?? false;
+  const profile = { fName, lName, phone, email, isPremium };
   userService.addUser(profile);
 
   setInputValue(Config.USER_FORM.SUBMIT, langService.getLabel('userForm.submitBtn.editUser'));

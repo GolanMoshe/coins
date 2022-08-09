@@ -76,8 +76,14 @@ async function fetchSelectedCoinsPrice() {
   console.log(`fetchSelectedCoinsPrice -> symbol2Price:` , symbol2Price);
 
   for (const [key, value] of Object.entries(symbol2Price)) {
-    document.querySelector(`#coin-list-container .coin-container[data_coin_symbol='${key}'] .coin-price-usd`).innerHTML = `${value.USD.toFixed(2)}$`;
-    document.querySelector(`#coin-list-container .coin-container[data_coin_symbol='${key}'] .coin-price-eur`).innerHTML = `${value.EUR.toFixed(2)}€`;
+
+    const usdRef = document.querySelector(`#coin-list-container .coin-container[data_coin_symbol='${key}'] .coin-price-usd`);
+  
+    if(usdRef) { 
+      document.querySelector(`#coin-list-container .coin-container[data_coin_symbol='${key}'] .coin-price-usd`).innerHTML = `${value.USD.toFixed(2)}$`;
+      document.querySelector(`#coin-list-container .coin-container[data_coin_symbol='${key}'] .coin-price-eur`).innerHTML = `${value.EUR.toFixed(2)}€`;
+    }
+    fetchSelectedCoinsPrice();
   }
 }
 
@@ -142,6 +148,10 @@ const cleanCache = () => {
 
 let langService;
 let errorMessageContainer;
+let fetchSelectedCoinsPriceIntervalId = null;
+
+
+
 const loadApplication = async () => {
   try {
     errorMessageContainer = getHtmlElement("error-message-container");
@@ -157,9 +167,10 @@ const loadApplication = async () => {
     await PrintCoins();
     fetchSelectedCoinsPrice();
 
+
     function instantGratification( fn, delay ) {
       fn();
-      setInterval( fn, delay );
+      fetchSelectedCoinsPriceIntervalId = setInterval( fn, delay );
     }
 
     instantGratification(fetchSelectedCoinsPrice, 2000);
@@ -169,3 +180,6 @@ const loadApplication = async () => {
     errorMessageContainer.innerText = error.message;
   }
 };
+
+
+

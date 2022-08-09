@@ -97,7 +97,19 @@
       // call function from main.js
         $(document).ready(function(){
           loadApplication();
+
+        
+
+          $(window).on("unload", function(e) {
+           
+            clearInterval(fetchSelectedCoinsPriceIntervalId);
+            fetchSelectedCoinsPriceIntervalId = null;
           });
+
+
+          });
+
+          
   </script>
 </body>
 </html>

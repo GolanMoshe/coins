@@ -25,7 +25,7 @@ function UserService() {
     }
 
     function toggleCoinSelection({ coinId, isChecked }) {
-       
+
         const userSelectionCoins = dataCoinService.getUserSelectedCoins();
         let isAddCoinEnabled = true;
 

@@ -27,6 +27,8 @@ form.addEventListener("change", function () {
   );
 });
 
+
+
 setInterval(() => {
   dataCoinService.clearCache();
   PrintCoins();
@@ -39,7 +41,7 @@ const onAddUserHandler = (e) => {
   const lName = getHtmlInputValue(Config.USER_FORM.LNAME);
   const phone = getHtmlInputValue(Config.USER_FORM.PHONE);
   const email = getHtmlInputValue(Config.USER_FORM.EMAIL);
-  const isPremium = getHtmlElement(Config.USER_FORM.EMAIL)?.checked ?? false;
+  const isPremium = getHtmlElement(Config.USER_FORM.IS_PREMIUM)?.checked ?? false;
   const profile = { fName, lName, phone, email, isPremium };
   userService.addUser(profile);
 
@@ -68,14 +70,16 @@ function updateHtmlForm() {
   }
 }
 
-async function PrintCoins() {
+async function PrintCoins(filterdCoins = undefined) {
   const coinTemplate = getHtmlElement("coin-template");
   const coinListContainerRef = getHtmlElement("coin-list-container");
   coinListContainerRef.innerHTML = "";
-  const coins = (await dataCoinService.getCoinsWithUserSelection()).slice(
+
+  
+  const coins =  filterdCoins ? filterdCoins :  (await dataCoinService.getCoinsWithUserSelection()).slice(
     0,
     Config.COINS_DISPLAY_COUNT
-  );
+  )  ;
 
   for (const coin of coins) {
     const coinCardNode = coinTemplate.content.cloneNode(true);
@@ -112,6 +116,13 @@ const loadApplication = async () => {
   try {
     errorMessageContainer = getHtmlElement("error-message-container");
     langService = LangService();
+    
+    getHtmlElement("searchCoinsInput").addEventListener('keyup', async (e)=> {
+      const coins = await dataCoinService.searchCoins(e.target.value);
+      console.log('searchCoins', coins);
+      PrintCoins(coins);
+    });
+
     updateHtmlForm();
     await PrintCoins();
   } catch (error) {

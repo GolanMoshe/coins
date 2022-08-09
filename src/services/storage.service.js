@@ -9,7 +9,7 @@ function StorageService() {
             parseValue =  JSON.parse(value) ;
             return parseValue
         }catch(err){
-           
+
         }
 
         return (value && value !== 'undefined') ? value : null;

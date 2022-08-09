@@ -2,14 +2,19 @@ function CoinService() {
   const GET_ALL_COINS_URL = "https://api.coingecko.com/api/v3/coins/";
   const GET_COIN_BY_ID_URL = "https://api.coingecko.com/api/v3/coins/:coinId";
 
+  let coinsFromCache = undefined;
   function getCoinsFromCache() {
-    return storageService.getItem("GET_ALL_COINS_URL") ?? null;
+    if(!coinsFromCache) { 
+      const coins = storageService.getItem("GET_ALL_COINS_URL");      
+      coinsFromCache = coins;
+    }
+    return coinsFromCache;
   }
 
   async function getAllCoins({ disableCache = false } = {}) {
     let cachedCoins;
 
-    if (!disableCache) {
+    if (!disableCache)  {
       cachedCoins = getCoinsFromCache();
 
       if (cachedCoins) {
@@ -22,14 +27,16 @@ function CoinService() {
 
     console.log("==================coins from SERVER======================");
     const response = await fetch(GET_ALL_COINS_URL);
-    const coins = await response.json();
+    const resultCoins = await response.json();
 
-    const selectCoins = coins.splice(0, Config.COINS_DISPLAY_COUNT);
-    cachedCoins = selectCoins.map((coin) => CoinType(coin));
+    const selectCoins = resultCoins.splice(0, Config.COINS_DISPLAY_COUNT);
+    const coins = selectCoins.map((coin) => CoinType(coin));
 
-    storageService.setItem("GET_ALL_COINS_URL", JSON.stringify(cachedCoins));
-
-    return cachedCoins;
+    if(!disableCache) { 
+      storageService.setItem("GET_ALL_COINS_URL", JSON.stringify(cachedCoins));
+      coinsFromCache = coins;
+    }
+    return coins;
   }
 
   async function getCoinById({ coinId }) {
@@ -60,7 +67,7 @@ function CoinService() {
     return storageService.getItem(Config.USER_SELECTED_COINS_KEY) ?? [];
   }
 
-  async function getCoinsWithUserSelection() {
+  async function getCoinsWithUserSelection() { 
     const allCoins = await getAllCoins();
     const userSelectionCoins = await getUserSelectedCoins();
 
@@ -77,10 +84,22 @@ function CoinService() {
     console.log(
       `=================clean coins from cache=========================`
     );
+    coinsFromCache = undefined;
     storageService.removeItem("GET_ALL_COINS_URL");
   }
 
+  async function searchCoins(keyWord){
+    
+     const coins =(await dataCoinService.getCoinsWithUserSelection()).slice(
+      0,
+      Config.COINS_DISPLAY_COUNT
+    ).filter((coin) => coin.name.toLowerCase().indexOf(keyWord?.toLowerCase()) > -1);
+
+    return coins;
+  }
+
   return {
+    searchCoins,
     getAllCoins,
     getCoinById,
     getUserSelectedCoins,

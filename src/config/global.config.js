@@ -4,7 +4,7 @@ const Config = {
   SELECTED_LANG: "selected-lang",
   DEFAULT_LANG: "en",
   COINS_CACHE_LIVE_TIME: 60 * 2 * 1000,
-  COINS_DISPLAY_COUNT: 40,
+  COINS_DISPLAY_COUNT: 50,
   USER_FORM: {
     FNAME: "fName",
     LNAME: "lName",

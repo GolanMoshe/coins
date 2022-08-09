@@ -98,12 +98,12 @@
         $(document).ready(function(){
           loadApplication();
           });
-          $(window).on("unload", function(e) {
-           clearInterval(fetchSelectedCoinsPriceIntervalId);
-           fetchSelectedCoinsPriceIntervalId = null;
-         });
 
-          
+        $(window).on("unload", function(e) {
+          console.log(`============clean interval============`)
+          clearInterval(fetchSelectedCoinsPriceIntervalId);
+          fetchSelectedCoinsPriceIntervalId = null;
+        });          
   </script>
 </body>
 </html>

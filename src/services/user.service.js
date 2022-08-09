@@ -21,7 +21,7 @@ function UserService() {
 
     function isPremium(){
         const user = userService.getUser();
-        return !!user.isPremium;
+        return !!user?.isPremium;
     }
 
     function toggleCoinSelection({ coinId, isChecked }) {

@@ -1,9 +1,8 @@
-const CoinType = ({ id, name, symbol, image, details= null, isSelected = false, currentPrices = []}) => {
+const CoinType = ({ id, name, symbol, image, details= null, currentPrices = []}) => {
   return {
     id,
     name,
     symbol,
-    isSelected,
     currentPrices,
     details
     

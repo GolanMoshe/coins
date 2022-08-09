@@ -1,5 +1,6 @@
 const Config = {
   USER_SELECTED_COINS_KEY: "user-selected-coins",
+  GRAPH_HISTORY_KEY: "GRAPH_HISTORY",
   USER_PROFILE_KEY: "user-profile-key",
   SELECTED_LANG: "selected-lang",
   DEFAULT_LANG: "en",

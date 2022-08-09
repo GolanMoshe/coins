@@ -17,6 +17,7 @@ const onCoinSelectedStatisChanged = (e) => {
   const isChecked = e.target.checked;
   const currentStatus = userService.toggleCoinSelection({ coinId, isChecked });
   e.target.checked = currentStatus;
+  PrintCoins();
 };
 
 const form = document.querySelector("form");
@@ -70,6 +71,17 @@ function updateHtmlForm() {
   }
 }
 
+async function fetchSelectedCoinsPrice() { 
+  const symbol2Price = await dataCoinService.getUserSelectedCoinsPrices();
+  console.log(`fetchSelectedCoinsPrice -> symbol2Price:` , symbol2Price);
+
+  for (const [key, value] of Object.entries(symbol2Price)) {
+    document.querySelector(`#coin-list-container .coin-container[data_coin_symbol='${key}'] .coin-price-usd`).innerHTML = `${value.USD.toFixed(2)}$`;
+    document.querySelector(`#coin-list-container .coin-container[data_coin_symbol='${key}'] .coin-price-eur`).innerHTML = `${value.EUR.toFixed(2)}€`;
+  }
+}
+
+
 async function PrintCoins(filterdCoins = undefined) {
   const coinTemplate = getHtmlElement("coin-template");
   const coinListContainerRef = getHtmlElement("coin-list-container");
@@ -81,14 +93,32 @@ async function PrintCoins(filterdCoins = undefined) {
     Config.COINS_DISPLAY_COUNT
   )  ;
 
-  for (const coin of coins) {
+
+  const sortedCoins = coins.sort((a,b) => { 
+
+    if(a.isSelected < b.isSelected) { 
+        return 1
+    }
+    
+    if(a.isSelected > b.isSelected) { 
+      return -1
+    }
+  
+    return 0
+  });
+
+  for (const coin of sortedCoins) {
     const coinCardNode = coinTemplate.content.cloneNode(true);
+    const coinElemntRef = coinCardNode.querySelector(".coin-container");
+    coinElemntRef.setAttribute("data_coin_symbol", coin.symbol.toUpperCase());
+    coinElemntRef.setAttribute("data_coin_id", coin.id);
     const coinNameRef = coinCardNode.querySelector(".coin-name");
 
     const coinCheckBoxRef = coinCardNode.querySelector(
       ".card-body div.form-check input.form-check-input"
     );
     coinCheckBoxRef.setAttribute("data_coin_id", coin.id);
+  
 
     if (coin.isSelected) {
       coinCheckBoxRef.setAttribute("checked", "true");
@@ -117,14 +147,23 @@ const loadApplication = async () => {
     errorMessageContainer = getHtmlElement("error-message-container");
     langService = LangService();
     
-    getHtmlElement("searchCoinsInput").addEventListener('keyup', async (e)=> {
-      const coins = await dataCoinService.searchCoins(e.target.value);
-      console.log('searchCoins', coins);
-      PrintCoins(coins);
+    getHtmlElement("searchCoinsInput").addEventListener('keyup', async (event)=> {
+      const filterCoins = await dataCoinService.searchCoins(event.target.value);
+      PrintCoins(filterCoins);
     });
 
+    
     updateHtmlForm();
     await PrintCoins();
+    fetchSelectedCoinsPrice();
+
+    function instantGratification( fn, delay ) {
+      fn();
+      setInterval( fn, delay );
+    }
+
+    instantGratification(fetchSelectedCoinsPrice, 2000);
+    
   } catch (error) {
     console.error(`problem getAllCoins`, error);
     errorMessageContainer.innerText = error.message;

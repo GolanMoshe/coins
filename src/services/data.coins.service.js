@@ -71,7 +71,7 @@ function CoinService() {
       alert(`getCoinsPrices -> symbols are required!`);
       return;
     }
-
+  
     const url = GET_COINS_PRICES_URL.replace(":coinsSymbols", symbols.join(","  )).replace(":currency", 'USD,EUR');
 
     var headers = new Headers();

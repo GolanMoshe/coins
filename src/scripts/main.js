@@ -72,6 +72,7 @@ function updateHtmlForm() {
 }
 
 async function fetchSelectedCoinsPrice() { 
+  
   const symbol2Price = await dataCoinService.getUserSelectedCoinsPrices();
   console.log(`fetchSelectedCoinsPrice -> symbol2Price:` , symbol2Price);
 
@@ -83,7 +84,6 @@ async function fetchSelectedCoinsPrice() {
       document.querySelector(`#coin-list-container .coin-container[data_coin_symbol='${key}'] .coin-price-usd`).innerHTML = `${value.USD.toFixed(2)}$`;
       document.querySelector(`#coin-list-container .coin-container[data_coin_symbol='${key}'] .coin-price-eur`).innerHTML = `${value.EUR.toFixed(2)}€`;
     }
-    fetchSelectedCoinsPrice();
   }
 }
 
@@ -165,15 +165,15 @@ const loadApplication = async () => {
     
     updateHtmlForm();
     await PrintCoins();
-    fetchSelectedCoinsPrice();
-
 
     function instantGratification( fn, delay ) {
       fn();
+      clearInterval(fetchSelectedCoinsPriceIntervalId);
       fetchSelectedCoinsPriceIntervalId = setInterval( fn, delay );
     }
 
     instantGratification(fetchSelectedCoinsPrice, 2000);
+    
     
   } catch (error) {
     console.error(`problem getAllCoins`, error);

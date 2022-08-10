@@ -15,3 +15,8 @@
 #chechboxSwitchBTN {
     width: 60%;
 }
+
+#languageDiv{
+    display: flex;
+    justify-content: center;
+}

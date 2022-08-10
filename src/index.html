@@ -63,7 +63,7 @@
     </div>
   </nav>
 
-  <div class="container mt-4" style="width: 60%;">
+  <div class="container mt-4" style="width: 50%;">
       <form onsubmit="onAddUserHandler(event)" id="userForm">
         <div class="form-group mb-3">
           <input type="text" class="form-control" id="fName" placeholder="First Name">
@@ -77,14 +77,14 @@
         <div class="mb-3">
           <input type="email" class="form-control" id="email" placeholder="User E-mail">
         </div>
-        <div class="form-check form-switch">
-          <label for="">User Premium</label>
+        <div class="form-check form-switch mb-3">
+          <label class="text-black" for=""><b>User Premium</b></label>
           <input class="form-check-input" id="isPremium" type="checkbox" role="switch">
         </div>
 
-        <div class="d-flex">
-        <input type="submit" class="btn btn-primary" id="formSubmitLabel" value="">
-        <input type="button" class="btn btn-outline-primary me-2" onclick="changeLanguage('he')" value="Hebrew">
+        <div id="languageDiv" class="d-flex">
+        <input type="button" class="btn btn-outline-primary me-2" onclick="changeLanguage('he')" value="עברית">
+        <input type="submit" class="btn btn-primary me-2" id="formSubmitLabel" value="">
         <input type="button" class="btn btn-outline-primary me-2" onclick="changeLanguage('en')" value="English">
         </div>
       </form>

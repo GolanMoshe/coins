@@ -83,6 +83,8 @@ async function fetchSelectedCoinsPrice() {
     if(usdRef) { 
       document.querySelector(`#coin-list-container .coin-container[data_coin_symbol='${key}'] .coin-price-usd`).innerHTML = `${value.USD.toFixed(2)}$`;
       document.querySelector(`#coin-list-container .coin-container[data_coin_symbol='${key}'] .coin-price-eur`).innerHTML = `${value.EUR.toFixed(2)}€`;
+      document.querySelector(`#coin-list-container .coin-container[data_coin_symbol='${key}'] .coin-price-ils`).innerHTML = `${value.ILS.toFixed(2)}₪`;
+
     }
   }
 }

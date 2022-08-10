@@ -1,3 +1,17 @@
 .coin-container{
-    width:12rem;margin: 0.5rem;
+    width:14rem;margin: 0.5rem;
+}
+
+#aboutDiv>h1 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+#aboutDiv {
+    text-align: left;
+    font-size: xx-large;
+}
+
+#chechboxSwitchBTN {
+    width: 60%;
 }

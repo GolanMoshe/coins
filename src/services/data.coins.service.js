@@ -72,7 +72,7 @@ function CoinService() {
       return;
     }
   
-    const url = GET_COINS_PRICES_URL.replace(":coinsSymbols", symbols.join(","  )).replace(":currency", 'USD,EUR');
+    const url = GET_COINS_PRICES_URL.replace(":coinsSymbols", symbols.join(","  )).replace(":currency", 'USD,EUR,ILS');
 
     var headers = new Headers();
     headers.append('pragma', 'no-cache'); 

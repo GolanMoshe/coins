@@ -4,7 +4,8 @@ const CoinType = ({ id, name, symbol, image, details= null, currentPrices = []})
     name,
     symbol,
     currentPrices,
-    details
+    details,
+    image
     
   };
 };

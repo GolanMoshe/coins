@@ -133,7 +133,7 @@ async function PrintCoins(filterdCoins = undefined) {
     }
 
     coinCheckBoxRef.onclick = onCoinSelectedStatisChanged;
-    coinNameRef.innerText = coin.name;
+    coinNameRef.innerHTML = coin.name + "-" + `<img src = "${coin.image.thumb}" />`
     coinListContainerRef.appendChild(coinCardNode);
   }
 }

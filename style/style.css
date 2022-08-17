@@ -12,6 +12,14 @@
     font-size: xx-large;
 }
 
+/* #aboutPicture {
+    background-image: url(/img/IMG-20210616-WA0007.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 100rem;
+    background-repeat: no-repeat;
+} */
+
 #chechboxSwitchBTN {
     width: 60%;
 }
@@ -20,3 +28,55 @@
     display: flex;
     justify-content: center;
 }
+
+#divOne {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    width: 100%;
+    height: 50vh;
+}
+
+#divOne>h1 {
+    background: #eee;
+    padding: 8px 24px;
+    border-radius: 16px;
+    text-shadow: 6px 6px 0px rgba(0,0,0,0.2);;
+}
+
+#divThree {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    width: 100%;
+    height: 40vh;
+}
+
+#divThree>h1 {
+    background: #eee;
+    padding: 8px 24px;
+    border-radius: 16px;
+}
+
+#divOne:nth-child(1){
+    background-image: url(/img/criptonite.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#divThree:nth-child(3){
+    background-image: url(/img/criptonite.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#divTwo {
+    background-color: black;
+}
+
+
+

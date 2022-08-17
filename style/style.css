@@ -2,23 +2,21 @@
     width:14rem;margin: 0.5rem;
 }
 
+#aboutDiv {
+    background-color: white;
+}
+
 #aboutDiv>h1 {
     text-align: center;
     text-decoration: underline;
+    background-color: gold;
+    border: 2px solid black;
 }
 
-#aboutDiv {
+#aboutDiv>div {
     text-align: left;
     font-size: xx-large;
 }
-
-/* #aboutPicture {
-    background-image: url(/img/IMG-20210616-WA0007.jpg);
-    background-size: cover;
-    background-position: center;
-    height: 100rem;
-    background-repeat: no-repeat;
-} */
 
 #chechboxSwitchBTN {
     width: 60%;
@@ -42,7 +40,7 @@
     background: #eee;
     padding: 8px 24px;
     border-radius: 16px;
-    text-shadow: 6px 6px 0px rgba(0,0,0,0.2);;
+    text-shadow: 6px 6px 0px rgba(0,0,0,0.2);
 }
 
 #divThree {
@@ -78,5 +76,33 @@
     background-color: black;
 }
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
 
+.contactForm {
+    width: 80%;
+    margin: auto;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    border: solid 1px white;
+}
+
+#cardAbout {
+    width: 80%;
+    margin: auto;
+}
+
+#cardTitle {
+    text-decoration: underline;
+    margin-top: 15%;
+    margin-bottom: 10%;
+}
 

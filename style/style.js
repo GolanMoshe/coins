@@ -1,6 +1,7 @@
-function about(){
-    $(".about").click(function () {
-        $("#coin-template").empty();
-        $("#coin-template").load("About.html");
+$(document).ready(function(){
+    $("#about").click(function(){
+        $("#coin-list-container").empty();
+        $("#coin-list-container").load("about.html");
     });
-}
+});
+

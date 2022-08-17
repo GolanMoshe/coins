@@ -26,12 +26,11 @@
   </div>
 
   <div id="divTwo">
-      <nav class="navbar navbar-expand-lg bg-light">
+      <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>  
-    
             <div class="collapse navbar-collapse" id="navbarScroll">
                 <div class="nav-item active">
                 <a href class="btn btn-outline-primary mt-2 ms-2" type="button">Home</a>
@@ -40,16 +39,20 @@
                 <a herf class="btn btn-outline-primary mt-2 ms-2" type="button">Live Report</a>
                 </div>
                 <div class="nav-item active">
-                <a href class="btn btn-outline-primary mt-2 ms-2" onclick="about()" type="button">About</a>
+                <input type="button" class="btn btn-outline-primary mt-2 ms-2" id="about" value="About">
                 </div>
             </div>
+
             <form class="d-flex" role="search">
               <input class="form-control mt-2" type="search" id="searchCoinsInput" placeholder="Search coin by name" aria-label="Search">
             </form>
+            
               <button id="" class="btn btn-outline-primary mt-2 me-2" onclick="cleanCache();">Refresh</button>
         </div>
       </nav>
+
       <div id="coin-list-container" style="display: flex;flex-wrap: wrap;"></div>
+
       <template id="coin-template">
         <div class="card coin-container">
         <h5 class="card-header coin-name"></h5>

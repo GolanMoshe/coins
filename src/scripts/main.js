@@ -174,7 +174,7 @@ const loadApplication = async () => {
       fetchSelectedCoinsPriceIntervalId = setInterval( fn, delay );
     }
 
-/* ------------ Server limit 7,500 calls API for a day, so I change to 6 sec' instead of 2 sec' -------------  */
+/* ------------ Server limit 7,500 API calls for a day, so I change to 6 sec' instead of 2 sec' -------------  */
     instantGratification(fetchSelectedCoinsPrice, 6000);
     
     

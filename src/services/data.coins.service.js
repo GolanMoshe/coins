@@ -20,6 +20,7 @@ function CoinService() {
         console.log(
           "==================fetch coins from CACHE======================"
         );
+        
         return cachedCoins;
       }
     }
@@ -27,7 +28,6 @@ function CoinService() {
     console.log("==================coins from SERVER======================");
     const response = await fetch(GET_ALL_COINS_URL);
     const resultCoins = await response.json();
-
     const selectCoins = resultCoins.splice(0, Config.COINS_DISPLAY_COUNT);
     const coins = selectCoins.map((coin) => CoinType(coin));
     

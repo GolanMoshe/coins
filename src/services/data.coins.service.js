@@ -3,6 +3,7 @@ function CoinService() {
   const GET_COIN_BY_ID_URL = "https://api.coingecko.com/api/v3/coins/:coinId";
   const GET_COINS_PRICES_URL =  "https://min-api.cryptocompare.com/data/pricemulti?fsyms=:coinsSymbols&tsyms=:currency"
   
+  
 
   let coinsFromCache = undefined;
   const coinsGraphHistory =[];

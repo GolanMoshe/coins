@@ -77,14 +77,15 @@ async function fetchSelectedCoinsPrice() {
   console.log(`fetchSelectedCoinsPrice -> symbol2Price:` , symbol2Price);
 
   for (const [key, value] of Object.entries(symbol2Price)) {
-
+    
     const usdRef = document.querySelector(`#coin-list-container .coin-container[data_coin_symbol='${key}'] .coin-price-usd`);
-  
+    
     if(usdRef) { 
+      
       document.querySelector(`#coin-list-container .coin-container[data_coin_symbol='${key}'] .coin-price-usd`).innerHTML = `${value.USD.toFixed(2)}$`;
       document.querySelector(`#coin-list-container .coin-container[data_coin_symbol='${key}'] .coin-price-eur`).innerHTML = `${value.EUR.toFixed(2)}€`;
       document.querySelector(`#coin-list-container .coin-container[data_coin_symbol='${key}'] .coin-price-ils`).innerHTML = `${value.ILS.toFixed(2)}₪`;
-
+      
     }
   }
 }
@@ -111,7 +112,7 @@ async function PrintCoins(filterdCoins = undefined) {
     if(a.isSelected > b.isSelected) { 
       return -1
     }
-  
+   
     return 0
   });
 
@@ -133,7 +134,7 @@ async function PrintCoins(filterdCoins = undefined) {
     }
 
     coinCheckBoxRef.onclick = onCoinSelectedStatisChanged;
-    coinNameRef.innerHTML = coin.name + "-" + `<img src = "${coin.image.thumb}" />`
+    coinNameRef.innerHTML = coin.name + "-" + "&nbsp" + `<img src = "${coin.image.thumb}" />`
     coinListContainerRef.appendChild(coinCardNode);
   }
 }

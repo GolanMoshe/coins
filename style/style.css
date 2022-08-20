@@ -1,118 +1,124 @@
-.coin-container{
-    width:14.5rem;
-    margin: 0.5rem;
+.coin-container {
+  width: 14.5rem;
+  margin: 0.5rem;
 }
 
-#coin-list-container{
-    justify-content: center;
+#coin-list-container {
+  justify-content: center;
 }
 
 #aboutDiv {
-    background-color: white;
+  background-color: white;
 }
 
-#aboutDiv>div {
-    text-align: left;
-    font-size: xx-large;
+#aboutDiv > div {
+  text-align: left;
+  font-size: xx-large;
 }
 
 #chechboxSwitchBTN {
-    width: 60%;
+  width: 60%;
 }
 
-#languageDiv{
-    display: flex;
-    justify-content: center;
+#languageDiv {
+  display: flex;
+  justify-content: center;
 }
 
 #divOne {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    width: 100%;
-    height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  width: 100%;
+  height: 50vh;
 }
 
-#divOne>h1 {
-    background: #eee;
-    padding: 8px 24px;
-    border-radius: 16px;
-    text-shadow: 6px 6px 0px rgba(0,0,0,0.2);
+#divOne > h1 {
+  background: #eee;
+  padding: 8px 24px;
+  border-radius: 16px;
+  text-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
 }
 
 #divThree {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    width: 100%;
-    height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  width: 100%;
+  height: 40vh;
 }
 
-#divThree>h1 {
-    background: #eee;
-    padding: 8px 24px;
-    border-radius: 16px;
+#divThree > h1 {
+  background: #eee;
+  padding: 8px 24px;
+  border-radius: 16px;
 }
 
-#divOne:nth-child(1){
-    background-image: url(/img/criptonite.jpg);
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+#divOne:nth-child(1) {
+  background-image: url(/img/criptonite.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
-#divThree:nth-child(3){
-    background-image: url(/img/criptonite.jpg);
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+#divThree:nth-child(3) {
+  background-image: url(/img/criptonite.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 #divTwo {
-    background-color: black;
+  background-color: black;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
 }
 
 .contactForm {
-    width: 80%;
-    margin: auto;
+  width: 80%;
+  margin: auto;
 }
 
 footer {
-    background-color: black;
-    color: white;
-    text-align: center;
-    border: solid 1px white;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border: solid 1px white;
 }
 
 #cardAbout {
-    width: 80%;
-    margin: auto;
+  width: 80%;
+  margin: auto;
 }
 
 #cardTitle {
-    text-decoration: underline;
-    margin-top: 15%;
-    margin-bottom: 10%;
+  text-decoration: underline;
+  margin-top: 15%;
+  margin-bottom: 10%;
 }
 
-#aboutHt{
-    background-color: black;
+#aboutHt {
+  background-color: black;
 }
 
-#aboutHtmParagh{
-    color: white;
+#aboutHtmParagh {
+  color: white;
 }
 
 .loader {
     display: inline-block;
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     position: fixed;
     top: 50%;
-    left: 47%;
-    display: none;
+    left: 46%;
 }
 
 .loader:after {
@@ -123,7 +129,7 @@ footer {
     margin: 8px;
     border-radius: 50%;
     border: 10px solid #fff;
-    border-color: gold transparent gold transparent;
+    border-color: rgb(0, 98, 255) transparent rgb(0, 98, 255) transparent;
     animation: loader 1.2s linear infinite;
 }
 
@@ -135,4 +141,3 @@ footer {
       transform: rotate(360deg);
     }
   }
-

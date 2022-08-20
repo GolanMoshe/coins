@@ -1,43 +1,45 @@
 function CoinService() {
   const GET_ALL_COINS_URL = "https://api.coingecko.com/api/v3/coins/";
   const GET_COIN_BY_ID_URL = "https://api.coingecko.com/api/v3/coins/:coinId";
-  const GET_COINS_PRICES_URL =  "https://min-api.cryptocompare.com/data/pricemulti?fsyms=:coinsSymbols&tsyms=:currency"
-  
-  
+  const GET_COINS_PRICES_URL =
+    "https://min-api.cryptocompare.com/data/pricemulti?fsyms=:coinsSymbols&tsyms=:currency";
 
   let coinsFromCache = undefined;
-  const coinsGraphHistory =[];
+  const coinsGraphHistory = [];
   function getCoinsFromCache() {
-    return coinsFromCache ? coinsFromCache : storageService.getItem("GET_ALL_COINS_URL")
+    return coinsFromCache
+      ? coinsFromCache
+      : storageService.getItem("GET_ALL_COINS_URL");
   }
 
   async function getAllCoins({ disableCache = false } = {}) {
     let cachedCoins;
 
-    if (!disableCache)  {
+    if (!disableCache) {
       cachedCoins = getCoinsFromCache();
 
       if (cachedCoins) {
         console.log(
           "==================fetch coins from CACHE======================"
         );
-        
+
         return cachedCoins;
       }
     }
 
     console.log("==================coins from SERVER======================");
+    $(".loader").show();
     const response = await fetch(GET_ALL_COINS_URL);
     const resultCoins = await response.json();
     const selectCoins = resultCoins.splice(0, Config.COINS_DISPLAY_COUNT);
     const coins = selectCoins.map((coin) => CoinType(coin));
-    
-  
 
-    if(!disableCache) { 
+    if (!disableCache) {
       storageService.setItem("GET_ALL_COINS_URL", JSON.stringify(coins));
       coinsFromCache = coins;
     }
+
+    $(".loader").hide();
     return coins;
   }
 
@@ -50,10 +52,10 @@ function CoinService() {
     const url = GET_COIN_BY_ID_URL.replace(":coinId", coinId);
 
     var headers = new Headers();
-    headers.append('pragma', 'no-cache'); 
-    headers.append('cache-control', 'no-cache');
+    headers.append("pragma", "no-cache");
+    headers.append("cache-control", "no-cache");
 
-    const response = await fetch(url ,  {headers});
+    const response = await fetch(url, { headers });
     const selectedCoin = await response.json();
 
     const currentPrices = selectedCoin?.market_data?.current_price;
@@ -68,44 +70,47 @@ function CoinService() {
     return cachedCoin;
   }
 
-  async function getCoinsPrices({symbols}) {
+  async function getCoinsPrices({ symbols }) {
     if (!symbols?.length) {
       alert(`getCoinsPrices -> symbols are required!`);
       return;
     }
-  
-    const url = GET_COINS_PRICES_URL.replace(":coinsSymbols", symbols.join(","  )).replace(":currency", 'USD,EUR,ILS');
+
+    const url = GET_COINS_PRICES_URL.replace(
+      ":coinsSymbols",
+      symbols.join(",")
+    ).replace(":currency", "USD,EUR,ILS");
 
     var headers = new Headers();
-    headers.append('pragma', 'no-cache'); 
-    headers.append('cache-control', 'no-cache');
-
-    const response = await fetch(url,  {cache: "no-cache"});
+    headers.append("pragma", "no-cache");
+    headers.append("cache-control", "no-cache");
+    $(".loader").show();
+    const response = await fetch(url, { cache: "no-cache" });
     const selectedCoin = await response.json();
+    $(".loader").hide();
+    coinsGraphHistory.push({ time: new Date(), data: selectedCoin });
 
-    coinsGraphHistory.push( {time: new Date(),   data: selectedCoin});
-
-    if(coinsGraphHistory.length > 10) { 
+    if (coinsGraphHistory.length > 10) {
       let history = storageService.getItem(Config.GRAPH_HISTORY_KEY) ?? [];
 
-      if( history.length > 450 ) { 
+      if (history.length > 450) {
         history = history.splice(0, 10);
       }
 
       history.push(...coinsGraphHistory);
-      storageService.setItem(Config.GRAPH_HISTORY_KEY , JSON.stringify(history));
+      storageService.setItem(Config.GRAPH_HISTORY_KEY, JSON.stringify(history));
       coinsGraphHistory.length = 0;
     }
 
     return selectedCoin;
   }
-  GET_COINS_PRICES_URL
+  GET_COINS_PRICES_URL;
 
   function getUserSelectedCoins() {
     return storageService.getItem(Config.USER_SELECTED_COINS_KEY) ?? [];
   }
 
-  async function getCoinsWithUserSelection() { 
+  async function getCoinsWithUserSelection() {
     const allCoins = await getAllCoins();
     const userSelectionCoins = await getUserSelectedCoins();
 
@@ -115,7 +120,6 @@ function CoinService() {
       }
     }
 
-  
     return allCoins;
   }
 
@@ -127,22 +131,21 @@ function CoinService() {
     storageService.removeItem("GET_ALL_COINS_URL");
   }
 
-  async function searchCoins(keyWord){
-    
-     const filterCoins =(await dataCoinService.getCoinsWithUserSelection()).slice(
-      0,
-      Config.COINS_DISPLAY_COUNT
-    ).filter((coin) => coin.name.toLowerCase().indexOf(keyWord?.toLowerCase()) > -1);
+  async function searchCoins(keyWord) {
+    const filterCoins = (await dataCoinService.getCoinsWithUserSelection())
+      .slice(0, Config.COINS_DISPLAY_COUNT)
+      .filter(
+        (coin) => coin.name.toLowerCase().indexOf(keyWord?.toLowerCase()) > -1
+      );
 
     return filterCoins;
   }
 
-
-  async function getUserSelectedCoinsPrices(){
+  async function getUserSelectedCoinsPrices() {
     const userSelectionCoins = await getUserSelectedCoins();
 
-    const symbols = (await getAllCoins()).map(coin => coin.symbol);
-    return await getCoinsPrices( {symbols});
+    const symbols = (await getAllCoins()).map((coin) => coin.symbol);
+    return await getCoinsPrices({ symbols });
   }
 
   return {
@@ -152,7 +155,7 @@ function CoinService() {
     getUserSelectedCoins,
     getCoinsWithUserSelection,
     clearCache,
-    getUserSelectedCoinsPrices
+    getUserSelectedCoinsPrices,
   };
 }
 

@@ -27,6 +27,7 @@ function CoinService() {
     }
 
     console.log("==================coins from SERVER======================");
+    $(".loader").show();
     const response = await fetch(GET_ALL_COINS_URL);
     const resultCoins = await response.json();
     const selectCoins = resultCoins.splice(0, Config.COINS_DISPLAY_COUNT);
@@ -38,6 +39,9 @@ function CoinService() {
       storageService.setItem("GET_ALL_COINS_URL", JSON.stringify(coins));
       coinsFromCache = coins;
     }
+
+    $(".loader").hide();
+
     return coins;
   }
 
@@ -79,10 +83,10 @@ function CoinService() {
     var headers = new Headers();
     headers.append('pragma', 'no-cache'); 
     headers.append('cache-control', 'no-cache');
-
+    $(".loader").show();
     const response = await fetch(url,  {cache: "no-cache"});
     const selectedCoin = await response.json();
-
+    $(".loader").hide();
     coinsGraphHistory.push( {time: new Date(),   data: selectedCoin});
 
     if(coinsGraphHistory.length > 10) { 
